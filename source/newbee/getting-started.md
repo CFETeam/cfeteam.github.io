@@ -1,3 +1,4 @@
+type: newbee
 title: 'Getting Started'
 ------------------------
 

@@ -1,0 +1,3 @@
+newbeeIndex: true
+type: newbee
+---
