@@ -70,7 +70,6 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:CFETeam/cfeteam.github.io.git
-  branch: gh-pages
 
 
 marked:
