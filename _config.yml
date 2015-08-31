@@ -69,7 +69,7 @@ theme: next
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:CFETeam/cfeteam.github.io.git
+  repo: https://github.com/CFETeam/cfeteam.github.io.git
 
 
 marked:
