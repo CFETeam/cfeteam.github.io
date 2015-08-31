@@ -5,12 +5,14 @@ title:
 
 menu:
   home: 首頁
-  archives: 歸檔
+  archives: 技術文章
   categories: 分類
   tags: 標籤
-  about: 關於
+  about: 關於我們
   search: 檢索
-
+  commonweal: 公益404
+  project: 項目
+  opensource: GitHub
 
 sidebar:
   overview: 本站概覽

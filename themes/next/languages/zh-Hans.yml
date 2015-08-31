@@ -1,18 +1,18 @@
 title:
-  archive: 归档
+  archive: 技术文章
   category: 分类
   tag: 标签
 
 menu:
   home: 首页
-  archives: 归档
+  archives: 技术文章
   categories: 分类
   tags: 标签
-  about: 关于
+  about: 关于我们
   search: 搜索
   commonweal: 公益404
-  newbee: NewBee
-
+  project: 项目
+  opensource: GitHub
 
 sidebar:
   overview: 站点概览
