@@ -14,7 +14,7 @@ author: miusuncle
 ```javascript
 /**
  * Execute javascript code within specific scope
- * @param  {Function} fn      sandboxed function
+ * @param  {Function} fn      scoped function
  * @param  {Object}   imports An object defines required local variables
  * @return {Function}         A function that can trigger to run code in specific scope
  */
