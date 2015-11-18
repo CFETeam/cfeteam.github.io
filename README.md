@@ -20,13 +20,17 @@ CFETeam 团队博客
   hexo new {{title}}
   ```
 
-4.	生成网站:
+4. 启动本地预览
+  ```bash
+  hexo server
+  ```
+
+5.	生成网站:
   ```bash
   hexo generate
   ```
 
-5.  发布:
+6.  发布:
   ```bash
   hexo deploy
   ```
-  
