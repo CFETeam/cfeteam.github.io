@@ -36,54 +36,64 @@ The following are some examples.
 
 ```javascript
 // e.g 1
-scopedRunner(
-  function (m, n) {
-    var result = (x + y) + (m + n);
-    console.log('The meaning of life is:', result);  //=> 42
-  },
-  { x: 10, y: 1 }
-).call(null, 30, 1);
+void function () {
+   scopedRunner(
+     function (m, n) {
+       var result = (x + y) + (m + n);
+       console.log('The meaning of life is:', result);  //=> 42
+     },
+     { x: 10, y: 1 }
+   ).call(null, 30, 1);
+}();
 ```
 
 ```javascript
 // e.g 2
-var result = scopedRunner(
-  'times(a, b)',
-  { a: 6, b: 7, times: (x, y) => x * y }
-)();
+void function () {
+  var result = scopedRunner(
+    'times(a, b)',
+    { a: 6, b: 7, times: (x, y) => x * y }
+  )();
 
-console.log('The meaning of life is:', result);      //=> 42
+  console.log('The meaning of life is:', result);      //=> 42
+}();
 ```
 
 ```javascript
 // e.g 3
 Object.prototype.__eval = function (expr) { return scopedRunner(expr, this)(); };
 
-var obj = ({ a: 6, b: 7, times: (x, y) => x * y })
-var result = obj.__eval('times(a, b)');
+void function () {
+  var obj = { a: 6, b: 7, times: (x, y) => x * y };
+  var result = obj.__eval('times(a, b)');
 
-console.log('The meaning of life is:', result);      //=> 42
+  console.log('The meaning of life is:', result);      //=> 42
+}();
 ```
 
 ```javascript
 // e.g 4
-var take = (scope => scopedRunner(scope['eval'], scope['with'])());
+var take = (scope => scopedRunner(scope.eval, scope.with)());
 
-var a = 6, b = 7, times = (a, b) => a * b;
+void function () {
+  var a = 6, b = 7, times = (a, b) => a * b;
 
-// take the value of evaluated result within specific scope
-var result = take({
-  with: { a, b, times },
-  eval: 'times(a, b)'
-});
+  // take result out from evaluated value within specific scope
+  var result = take({
+    with: { a, b, times },
+    eval: 'times(a, b)'
+  });
 
-console.log('The meaning of life is:', result);      //=> 42
+  console.log('The meaning of life is:', result);      //=> 42
+}();
 ```
 
 ```javascript
 // e.g 5
 var invoke = scopedRunner((fn, ...args) => fn.apply(null, args))();
-var result = invoke((a, b) => a + b, 6, 7);
 
-console.log('The meaning of life is:', result);      //=> 13
+void function () {
+  var result = invoke((a, b) => a + b, 6, 7);
+  console.log('The meaning of life is:', result);      //=> 13
+}();
 ```
