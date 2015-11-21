@@ -1,0 +1,719 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="腾讯云前端团队" />
+
+
+
+  <meta name="keywords" content="eval,javascript,scope," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="一般我们代码几乎不会使用到eval, 但凡需要使用到eval的地方，都会代而使用构造器Function生成函数实例的方式，因为eval is evil。eval可以在全局作域下执行代码，也可以在局部作用域（间接调用eval）下执行代码。而使用构造器Function生成函数实例的方式，可以确保我们的代码是在全局作用域下执行。
+依赖Function构造函数，我们可以实现自己的“eval”。这里我将实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“eval” is not evil">
+<meta property="og:url" content="http://yoursite.com/blog/2015/11/19/“eval”-is-not-evil/index.html">
+<meta property="og:site_name" content="Cloud+FE Team">
+<meta property="og:description" content="一般我们代码几乎不会使用到eval, 但凡需要使用到eval的地方，都会代而使用构造器Function生成函数实例的方式，因为eval is evil。eval可以在全局作域下执行代码，也可以在局部作用域（间接调用eval）下执行代码。而使用构造器Function生成函数实例的方式，可以确保我们的代码是在全局作用域下执行。
+依赖Function构造函数，我们可以实现自己的“eval”。这里我将实现">
+<meta property="og:updated_time" content="2015-11-21T04:56:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="“eval” is not evil">
+<meta name="twitter:description" content="一般我们代码几乎不会使用到eval, 但凡需要使用到eval的地方，都会代而使用构造器Function生成函数实例的方式，因为eval is evil。eval可以在全局作域下执行代码，也可以在局部作用域（间接调用eval）下执行代码。而使用构造器Function生成函数实例的方式，可以确保我们的代码是在全局作用域下执行。
+依赖Function构造函数，我们可以实现自己的“eval”。这里我将实现">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+<style>
+  pre[data-code=html] + pre[data-code=js]{
+    display:none;
+  }
+</style>
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <title> “eval” is not evil | Cloud+FE Team </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <img width=25 height=25 style="margin-top: 5px;" src="/images/default_avatar.jpg" />
+      </span>
+      <span class="site-title">Cloud+FE Team</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <!-- <i class="menu-item-icon icon-next-home"></i> <br /> -->
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            <!-- <i class="menu-item-icon icon-next-archives"></i> <br /> -->
+            技术文章
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/newbee/getting-started.html" rel="section">
+            <!-- <i class="menu-item-icon icon-next-project"></i> <br /> -->
+            项目
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-opensource">
+          <a href="https://github.com/CFETeam" rel="section">
+            <!-- <i class="menu-item-icon icon-next-opensource"></i> <br /> -->
+            GitHub
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <!-- <i class="menu-item-icon icon-next-about"></i> <br /> -->
+            关于我们
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              “eval” is not evil
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          miusuncle
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-19T18:06:19+08:00" content="2015-11-19">
+            2015-11-19
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>一般我们代码几乎不会使用到<code>eval</code>, 但凡需要使用到<code>eval</code>的地方，都会代而<code>使用构造器Function生成函数实例</code>的方式，因为<code>eval is evil</code>。<code>eval</code>可以在全局作域下执行代码，也可以在局部作用域（间接调用<code>eval</code>）下执行代码。而<code>使用构造器Function生成函数实例</code>的方式，可以确保我们的代码是在全局作用域下执行。</p>
+<p>依赖<code>Function</code>构造函数，我们可以实现自己的<code>“eval”</code>。这里我将实现的<code>“eval”</code>命名为<code>$eval</code>，以示区分。当然，<code>$eval</code>实现的功能和原生<code>eval</code>功能不尽相同。<code>$eval</code>可以让我们在指定作用域下执行代码。同时，这里还额外将<code>$eval</code>方法定义到<code>Object.prototype</code>中以适用不同场合。</p>
+<p>下面是<code>$eval</code>和<code>Object.prototype.$eval</code>的代码实现。</p>
+<pre data-code="javascript"><code class="javascript"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span> (<span class="params">global</span>) </span>{
+  <span class="comment">/**
+   * Execute javascript code within specific scope
+   * @param  {Function|String} fn Scoped function or expression
+   * @param  {Object} imports     An object which defines required local variables
+   * @return {Function}           Function that can be invoked to run code in specific scope
+   */</span>
+  <span class="function"><span class="keyword">function</span> <span class="title">scopedRunner</span>(<span class="params">fn, imports</span>) </span>{
+    <span class="keyword">var</span> rfunc = <span class="regexp">/^function\s+(?:[^(]*)\(([^)]*)\)\s*{([^]*)}$/</span>;
+    <span class="keyword">var</span> found = <span class="built_in">String</span>(fn).match(rfunc) || [,,<span class="string">'return ('</span> + fn + <span class="string">');'</span>];
+    <span class="keyword">var</span> args = found[<span class="number">1</span>] || <span class="string">''</span>;
+    <span class="keyword">var</span> stmt = found[<span class="number">2</span>] || <span class="string">''</span>;
+
+    <span class="keyword">var</span> body = <span class="built_in">Object</span>.keys(imports || {}).reduce(<span class="function"><span class="keyword">function</span> (<span class="params">ret, key, idx</span>) </span>{
+      <span class="keyword">return</span> ret + (idx ? <span class="string">', '</span> : <span class="string">'var '</span>) + key + <span class="string">' = $scope["'</span> + key + <span class="string">'"]'</span>;
+    }, <span class="string">''</span>) + <span class="string">'; return function ('</span> + args + <span class="string">') {'</span> + stmt + <span class="string">'};'</span>;
+
+    <span class="keyword">return</span> <span class="built_in">Function</span>(<span class="string">'$scope'</span>, body).call(<span class="literal">null</span>, imports);
+  }
+
+  <span class="comment">// define `global.$eval`</span>
+  <span class="built_in">Object</span>.defineProperty(global, <span class="string">'$eval'</span>, {
+    value: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+      <span class="keyword">return</span> scopedRunner.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>)();
+    }
+  });
+
+  <span class="comment">// define `Object.prototype.$eval`</span>
+  <span class="built_in">Object</span>.defineProperty(<span class="built_in">Object</span>.prototype, <span class="string">'$eval'</span>, {
+    value: <span class="function"><span class="keyword">function</span> (<span class="params">expr</span>) </span>{
+      <span class="keyword">return</span> global.$<span class="built_in">eval</span>(expr, <span class="keyword">this</span>);
+    }
+  });
+}(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ <span class="keyword">return</span> <span class="keyword">this</span>; }());</code></pre><p>以下是一些关于<code>$eval</code>和<code>Object.prototype.$eval</code>的使用例子。</p>
+<ul>
+<li>e.g 1</li>
+</ul>
+<pre data-code="javascript"><code class="javascript"><span class="comment">// define some global variables</span>
+x = <span class="number">10</span>;
+y = <span class="number">30</span>;
+
+<span class="keyword">void</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="comment">// define some local variables</span>
+  <span class="keyword">var</span> a = <span class="number">6</span>, b = <span class="number">7</span>;
+
+  $<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// Uncaught ReferenceError: a is not defined</span>
+    <span class="comment">// console.log(a + b);</span>
+  });
+
+  <span class="comment">// Uncaught ReferenceError: a is not defined</span>
+  <span class="comment">// console.log($eval('a + b'));</span>
+
+  <span class="built_in">console</span>.log($<span class="built_in">eval</span>(<span class="string">'y / x'</span>)); <span class="comment">//=&gt; 3</span>
+}();</code></pre><ul>
+<li>e.g 2</li>
+</ul>
+<pre data-code="javascript"><code class="javascript"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> obj = { a: <span class="number">6</span>, b: <span class="number">7</span> };
+  <span class="keyword">var</span> result;
+
+  result = $<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">return</span> a * b;
+  }, obj);
+  <span class="built_in">console</span>.log(result); <span class="comment">//=&gt; 42</span>
+
+  result = $<span class="built_in">eval</span>(<span class="string">'a * b'</span>, obj);
+  <span class="built_in">console</span>.log(result); <span class="comment">//=&gt; 42</span>
+
+  result = obj.$<span class="built_in">eval</span>(<span class="string">'a * b'</span>);
+  <span class="built_in">console</span>.log(result); <span class="comment">//=&gt; 42</span>
+}();</code></pre><ul>
+<li>e.g 3</li>
+</ul>
+<pre data-code="javascript"><code class="javascript"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> raws = [<span class="string">'42'</span>, <span class="string">'"42"'</span>, <span class="string">'a * b'</span>, <span class="string">'[a, b]'</span>, <span class="string">'{ x: a, y: b }'</span>];
+  <span class="keyword">var</span> out = raws.map(<span class="built_in">eval</span>.$<span class="built_in">eval</span>.bind({ a: <span class="number">6</span>, b: <span class="number">7</span> }));
+
+  <span class="comment">//=&gt; [42, '42', 42, [6, 7], { x: 6, y: 7 }]</span>
+  <span class="built_in">console</span>.log(out);
+}();</code></pre><ul>
+<li>e.g 4</li>
+</ul>
+<pre data-code="javascript"><code class="javascript">x = <span class="number">10</span>;
+y = <span class="number">30</span>;
+
+<span class="keyword">void</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> obj = {
+    x: <span class="number">6</span>,
+    y: <span class="number">7</span>,
+    times: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+      <span class="keyword">return</span> <span class="keyword">this</span>.x * <span class="keyword">this</span>.y;
+    },
+    sum: <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>{
+      <span class="keyword">return</span> x + y;
+    }
+  };
+
+  <span class="built_in">console</span>.log(
+    $<span class="built_in">eval</span>(<span class="string">'$scope'</span>, obj) === obj,                        <span class="comment">//=&gt; true</span>
+    $<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ <span class="keyword">return</span> $scope; }, obj) === obj,  <span class="comment">//=&gt; true</span>
+    obj.$<span class="built_in">eval</span>(<span class="string">'$scope'</span>) === obj,                         <span class="comment">//=&gt; true</span>
+    obj.$<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ <span class="keyword">return</span> $scope; }) === obj    <span class="comment">//=&gt; true</span>
+  );
+
+  <span class="built_in">console</span>.log(
+    obj.$<span class="built_in">eval</span>(<span class="string">'times()'</span>),             <span class="comment">//=&gt; 300</span>
+    obj.$<span class="built_in">eval</span>(<span class="string">'$scope.times()'</span>),      <span class="comment">//=&gt; 42</span>
+    obj.$<span class="built_in">eval</span>(<span class="string">'times.call($scope)'</span>)   <span class="comment">//=&gt; 42</span>
+  );
+
+  obj.$<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(times());             <span class="comment">//=&gt; 300</span>
+    <span class="built_in">console</span>.log($scope.times());      <span class="comment">//=&gt; 42</span>
+    <span class="built_in">console</span>.log(times.call($scope));  <span class="comment">//=&gt; 42</span>
+  });
+
+  <span class="built_in">console</span>.log(
+    obj.$<span class="built_in">eval</span>(<span class="string">'sum(x,y)'</span>),                          <span class="comment">//=&gt; 13</span>
+    obj.$<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ <span class="keyword">return</span> sum(x, y); }),   <span class="comment">//=&gt; 13</span>
+    $<span class="built_in">eval</span>(<span class="string">'sum(x,y)'</span>, obj),                         <span class="comment">//=&gt; 13</span>
+    $<span class="built_in">eval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ <span class="keyword">return</span> sum(x, y); }, obj)   <span class="comment">//=&gt; 13</span>
+  );
+}();</code></pre><p>最后，<code>$eval is not eval, $eval is not evil</code>。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/eval/" rel="tag">#eval</a>
+          
+            <a href="/blog/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/blog/tags/scope/" rel="tag">#scope</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/11/18/scoped-reality/" rel="next">Scoped Reality</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="CFETeam" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">CFETeam</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">腾讯云前端团队</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CFETeam</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script src="/js/bee-ui-demo.js"></script>
+</body>
+</html>

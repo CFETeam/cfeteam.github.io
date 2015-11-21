@@ -1,0 +1,413 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="腾讯云前端团队" />
+
+
+
+  <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="滑块输入 (Slider-range)&amp;lt;slider-range id=&quot;slider-range-demo1&quot; max=&quot;200&quot; step=&quot;5&quot; value=&quot;6&quot;&amp;gt;&amp;lt;/slider-range&amp;gt;Bee.mount(&apos;slider-range-demo1&apos;)Bee.mount(&apos;slider-range-demo1&apos;)表格 (Grid-view)
+  
+  {">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Getting Started">
+<meta property="og:url" content="http://yoursite.com/newbee/getting-started.html">
+<meta property="og:site_name" content="Cloud+FE Team">
+<meta property="og:description" content="滑块输入 (Slider-range)&amp;lt;slider-range id=&quot;slider-range-demo1&quot; max=&quot;200&quot; step=&quot;5&quot; value=&quot;6&quot;&amp;gt;&amp;lt;/slider-range&amp;gt;Bee.mount(&apos;slider-range-demo1&apos;)Bee.mount(&apos;slider-range-demo1&apos;)表格 (Grid-view)
+  
+  {">
+<meta property="og:updated_time" content="2015-11-21T04:44:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Getting Started">
+<meta name="twitter:description" content="滑块输入 (Slider-range)&amp;lt;slider-range id=&quot;slider-range-demo1&quot; max=&quot;200&quot; step=&quot;5&quot; value=&quot;6&quot;&amp;gt;&amp;lt;/slider-range&amp;gt;Bee.mount(&apos;slider-range-demo1&apos;)Bee.mount(&apos;slider-range-demo1&apos;)表格 (Grid-view)
+  
+  {">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+<style>
+  pre[data-code=html] + pre[data-code=js]{
+    display:none;
+  }
+</style>
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <title>
+  
+
+  
+    Getting Started | Cloud+FE Team
+  
+</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <img width=25 height=25 style="margin-top: 5px;" src="/images/default_avatar.jpg" />
+      </span>
+      <span class="site-title">Cloud+FE Team</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <!-- <i class="menu-item-icon icon-next-home"></i> <br /> -->
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            <!-- <i class="menu-item-icon icon-next-archives"></i> <br /> -->
+            技术文章
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/newbee/getting-started.html" rel="section">
+            <!-- <i class="menu-item-icon icon-next-project"></i> <br /> -->
+            项目
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-opensource">
+          <a href="https://github.com/CFETeam" rel="section">
+            <!-- <i class="menu-item-icon icon-next-opensource"></i> <br /> -->
+            GitHub
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <!-- <i class="menu-item-icon icon-next-about"></i> <br /> -->
+            关于我们
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+<link rel="stylesheet" type="text/css" href="//imgcache.qq.com/open_proj/proj_qcloud_v2/bee/css/bee-0.2.0.css"/>
+<script src="//imgcache.qq.com/qcloud/app/qccomponents/release/bee-ui-0.2.1.js"></script>
+  <div id="posts" class="posts-expand">
+    
+    
+      <h2 id="滑块输入_(Slider-range)">滑块输入 (Slider-range)</h2><slider-range id="slider-range-demo1" max="200" step="5" value="6"></slider-range><pre data-code="html"><code class="html"><span class="tag">&lt;<span class="title">slider-range</span> <span class="attribute">id</span>=<span class="value">"slider-range-demo1"</span> <span class="attribute">max</span>=<span class="value">"200"</span> <span class="attribute">step</span>=<span class="value">"5"</span> <span class="attribute">value</span>=<span class="value">"6"</span>&gt;</span><span class="tag">&lt;/<span class="title">slider-range</span>&gt;</span></code></pre><pre data-code="js"><code class="js">Bee.mount(<span class="string">'slider-range-demo1'</span>)</code></pre><script>Bee.mount('slider-range-demo1')</script><h2 id="表格_(Grid-view)">表格 (Grid-view)</h2><grid-view min-height="auto" show-pagination="" show-state="">
+  <script type="text/json" data="">
+  {
+    "colums": [
+      {"name": "主机名", "key": "alias"},
+      {"name": "所属网络", "key": "netName"},
+      {"name": "内网 IP", "key": "ip"}
+    ],
+    "list": [
+      {"alias": "未命名", "netName": "基础网络", "ip": "10.143.64.70"}
+    ]
+  }
+  </script>
+</grid-view><pre data-code="html"><code class="html"><span class="tag">&lt;<span class="title">grid-view</span> <span class="attribute">min-height</span>=<span class="value">"auto"</span> <span class="attribute">show-pagination</span>=<span class="value">""</span> <span class="attribute">show-state</span>=<span class="value">""</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/json"</span> <span class="attribute">data</span>&gt;</span><span class="actionscript">
+  {
+    <span class="string">"colums"</span>: [
+      {<span class="string">"name"</span>: <span class="string">"主机名"</span>, <span class="string">"key"</span>: <span class="string">"alias"</span>},
+      {<span class="string">"name"</span>: <span class="string">"所属网络"</span>, <span class="string">"key"</span>: <span class="string">"netName"</span>},
+      {<span class="string">"name"</span>: <span class="string">"内网 IP"</span>, <span class="string">"key"</span>: <span class="string">"ip"</span>}
+    ],
+    <span class="string">"list"</span>: [
+      {<span class="string">"alias"</span>: <span class="string">"未命名"</span>, <span class="string">"netName"</span>: <span class="string">"基础网络"</span>, <span class="string">"ip"</span>: <span class="string">"10.143.64.70"</span>}
+    ]
+  }
+  </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">grid-view</span>&gt;</span></code></pre><grid-view id="grid-view-example"></grid-view><pre data-code="html"><code class="html"><span class="tag">&lt;<span class="title">grid-view</span> <span class="attribute">id</span>=<span class="value">"grid-view-example"</span>&gt;</span><span class="tag">&lt;/<span class="title">grid-view</span>&gt;</span></code></pre><pre data-code="js"><code class="js">Bee.mount(<span class="string">'grid-view-example'</span>, {
+  $data: {
+    <span class="string">"colums"</span>: [
+      {<span class="string">"name"</span>: <span class="string">"主机名"</span>, <span class="string">"key"</span>: <span class="string">"alias"</span>},
+      {<span class="string">"name"</span>: <span class="string">"所属网络"</span>, <span class="string">"key"</span>: <span class="string">"netName"</span>},
+      {<span class="string">"name"</span>: <span class="string">"内网 IP"</span>, <span class="string">"key"</span>: <span class="string">"ip"</span>}
+    ],
+    count: <span class="number">5</span>,
+    minHeight: <span class="number">350</span>
+  },
+  getData: <span class="function"><span class="keyword">function</span>(<span class="params">options, callback</span>) </span>{
+    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      callback(<span class="literal">null</span>, {
+        <span class="string">"list"</span>: [
+          {<span class="string">"alias"</span>: <span class="string">"未命名"</span>, <span class="string">"netName"</span>: <span class="string">"基础网络"</span>, <span class="string">"ip"</span>: <span class="string">"10.143.64.70"</span>}
+        ],
+        totalNum: <span class="number">10</span>
+      })
+    }, <span class="number">0</span>)
+  }
+})</code></pre><script>Bee.mount('grid-view-example', {
+  $data: {
+    "colums": [
+      {"name": "主机名", "key": "alias"},
+      {"name": "所属网络", "key": "netName"},
+      {"name": "内网 IP", "key": "ip"}
+    ],
+    count: 5,
+    minHeight: 350
+  },
+  getData: function(options, callback) {
+    setTimeout(function() {
+      callback(null, {
+        "list": [
+          {"alias": "未命名", "netName": "基础网络", "ip": "10.143.64.70"}
+        ],
+        totalNum: 10
+      })
+    }, 0)
+  }
+})</script><h2 id="end">end</h2>
+    
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="CFETeam" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">CFETeam</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">腾讯云前端团队</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CFETeam</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script src="/js/bee-ui-demo.js"></script>
+</body>
+</html>
