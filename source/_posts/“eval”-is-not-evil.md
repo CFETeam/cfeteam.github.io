@@ -64,14 +64,14 @@ void function () {
   var a = 6, b = 7;
 
   $eval(function () {
-    // ReferenceError: a is not defined
+    // Uncaught ReferenceError: a is not defined
     // console.log(a + b);
   });
 
-  // ReferenceError: a is not defined
-  // $eval('a + b');
+  // Uncaught ReferenceError: a is not defined
+  // console.log($eval('a + b'));
 
-  $eval('y / x'); //=> 3
+  console.log($eval('y / x')); //=> 3
 }();
 ```
 

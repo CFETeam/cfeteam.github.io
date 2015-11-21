@@ -15,22 +15,27 @@ CFETeam 团队博客
   cd cfeteam.github.io && npm install
   ```
 
-3.  编写文章:
+3. 安装全局`hexo`命令
+  ```bash
+  npm install -g hexo
+  ```
+
+4.  编写文章:
   ```bash
   hexo new {{title}}
   ```
 
-4. 启动本地预览
+5. 启动本地预览
   ```bash
   hexo server
   ```
 
-5.	生成网站:
+6.	生成网站:
   ```bash
   hexo generate
   ```
 
-6.  发布:
+7.  发布:
   ```bash
   hexo deploy
   ```
